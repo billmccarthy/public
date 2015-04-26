@@ -1,0 +1,11 @@
+.DS_Store
+*.iml
+*.ipr
+*.iws
+target/
+.idea/
+lib_managed/
+*.swp
+*.s
+lex.yy.c
+a.out
