@@ -1,0 +1,21 @@
+#* @vtlvariable name="Ctx" type="net.mnlds.messing.chroniclectx.Ctx" *#
+#parse("common/RecCommon.vm")
+package $Ctx.Package;
+
+import net.openhft.lang.io.Bytes;
+import net.openhft.lang.io.serialization.BytesMarshallable;
+
+public class ReadRecImpl implements ReadRec, BytesMarshallable
+{
+#ivarDecl( $Ctx )
+
+    ReadRecImpl(){}
+    ReadRecImpl( int i )
+    {
+#ivarInit( $Ctx )
+    }
+
+#gettersImpl( $Ctx )
+
+#rwMarshallable( $Ctx )
+}

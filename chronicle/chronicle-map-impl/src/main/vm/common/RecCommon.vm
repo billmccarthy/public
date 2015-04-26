@@ -1,0 +1,54 @@
+#* @vtlvariable name="Utils" type="net.mnlds.velocityutils.Utils" *#
+#* @vtlvariable name="Ctx" type="net.mnlds.messing.chroniclectx.Ctx" *#
+#macro(ivarDecl $Ctx)
+#foreach( $attr in $Ctx.Attrs )
+    $attr.Type m_$attr;
+#end
+#end
+#macro(ivarInit $Ctx)
+#foreach( $attr in $Ctx.Attrs )
+        m_$attr = $attr.fromInt("i");
+#end
+#end
+#macro(gettersIfc $Ctx)
+#foreach( $attr in $Ctx.Attrs )
+    $attr.Type get$Utils.toUpperFirstLetter( $attr.Name )();
+#end
+#end
+#macro(settersIfc $Ctx)
+#foreach( $attr in $Ctx.Attrs )
+    void set$Utils.toUpperFirstLetter( $attr.Name )( $attr.Annotation $attr.Type v );
+#end
+#end
+#macro(gettersImpl $Ctx)
+#foreach( $attr in $Ctx.Attrs )
+    public $attr.Type get$Utils.toUpperFirstLetter( $attr.Name )() { return m_$attr; }
+#end
+#end
+#macro(settersImpl $Ctx)
+#foreach( $attr in $Ctx.Attrs )
+    public void set$Utils.toUpperFirstLetter( $attr.Name )( $attr.Type v ){ m_$attr = v; }
+#end
+#end
+#macro( rwMarshallable $Ctx )
+    public void readMarshallable( Bytes in ) throws IllegalStateException
+    {
+#foreach( $attr in $Ctx.Attrs )
+#if( $attr.Type == "String" )
+        m_$attr = Util.readString( in );
+#else
+        m_$attr = in.read$Utils.toUpperFirstLetter( $attr.Type )();
+#end
+#end
+    }
+    public void writeMarshallable( Bytes out )
+    {
+#foreach( $attr in $Ctx.Attrs )
+#if( $attr.Type == "String" )
+        Util.writeString( m_$attr, out );
+#else
+        out.write$Utils.toUpperFirstLetter( $attr.Type )( m_$attr );
+#end
+#end
+    }
+#end

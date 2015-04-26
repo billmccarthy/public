@@ -1,0 +1,11 @@
+#* @vtlvariable name="Ctx" type="net.mnlds.messing.chroniclectx.Ctx" *#
+#parse("common/RecCommon.vm")
+package $Ctx.Package;
+
+import net.openhft.lang.model.constraints.MaxSize;
+
+public interface ReadWriteRec
+{
+#gettersIfc( $Ctx )
+#settersIfc( $Ctx )
+}
