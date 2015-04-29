@@ -25,6 +25,11 @@ public class Ctx implements CtxIfc
         return streamToList( Stream.concat(stringCols(), Stream.concat( doubleCols(), intCols() ) ) );
     }
 
+    public List<Type> getTypes()
+    {
+        return streamToList( types() );
+    }
+
     public static class Attr
     {
         private final String m_type;
@@ -53,9 +58,38 @@ public class Ctx implements CtxIfc
         }
     }
 
+    public static class Type
+    {
+        private final String m_name;
+        private final int m_count;
+        private final String m_valueAnnotation;
+        Type( String name, int count, String valueAnnotation )
+        {
+            m_name = name;
+            m_count = count;
+            m_valueAnnotation = valueAnnotation;
+        }
+
+        public String getName()
+        {
+            return m_name;
+        }
+
+        public String getKeyAnnotation()
+        {
+            return "@MaxSize("+m_count+")";
+        }
+
+        public String getValueAnnotation()
+        {
+            return m_valueAnnotation;
+        }
+
+    }
+
     private Stream< Attr > doubleCols()
     {
-        return IntStream.range( 0, 100 ).mapToObj( i -> new Attr( "double", "d"+i ) );
+        return IntStream.range( 0, 50 ).mapToObj( i -> new Attr( "double", "d"+i ) );
     }
 
     private Stream< Attr > intCols()
@@ -65,7 +99,22 @@ public class Ctx implements CtxIfc
 
     private Stream< Attr > stringCols()
     {
-        return IntStream.range( 0, 100 ).mapToObj( i -> new Attr( "String", "s"+i, "@MaxSize( 16 )", p -> "\"pfx\" + "+p ) );
+        return IntStream.range( 0, 50 ).mapToObj( i -> new Attr( "String", "s"+i, "@MaxSize( 16 )", p -> "\"pfx\" + "+p ) );
+    }
+
+    private Stream< Type > types()
+    {
+        return Stream.of(
+                new Type( "boolean", 0, "" ),
+                new Type( "byte", 0, "" ),
+                new Type( "short", 0, "" ),
+                new Type( "int", 1, "" ),
+                new Type( "char", 0, "" ),
+                new Type( "long", 0, "" ),
+                new Type( "float", 0, "" ),
+                new Type( "double", 50, "" ),
+                new Type( "String", 50, "@MaxSize(16)" )
+                );
     }
 
     private static <T> List<T> streamToList( Stream<T> stream )

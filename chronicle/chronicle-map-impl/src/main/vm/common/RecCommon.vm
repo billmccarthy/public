@@ -20,6 +20,16 @@
     void set$Utils.toUpperFirstLetter( $attr.Name )( $attr.Annotation $attr.Type v );
 #end
 #end
+#macro(gettersPosIfc $Ctx)
+#foreach( $type in $Ctx.Types )
+    $type.Name get$Utils.toUpperFirstLetter( $type.Name )At( int pos );
+#end
+#end
+#macro(settersPosIfc $Ctx)
+#foreach( $type in $Ctx.Types )
+    void set$Utils.toUpperFirstLetter( $type.Name )At( $type.keyAnnotation int pos, $type.ValueAnnotation $type.Name v );
+#end
+#end
 #macro(gettersImpl $Ctx)
 #foreach( $attr in $Ctx.Attrs )
     public $attr.Type get$Utils.toUpperFirstLetter( $attr.Name )() { return m_$attr; }

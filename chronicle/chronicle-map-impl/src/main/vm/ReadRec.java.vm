@@ -1,8 +1,0 @@
-#* @vtlvariable name="Ctx" type="net.mnlds.messing.chroniclectx.Ctx" *#
-#parse("common/RecCommon.vm")
-package $Ctx.Package;
-
-public interface ReadRec
-{
-#gettersIfc( $Ctx )
-}
