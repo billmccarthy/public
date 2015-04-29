@@ -16,6 +16,7 @@ public class ChronMain
 
     public static void main( String[] args ) throws IOException
     {
+        System.setProperty("dvg.dumpCode", "false");
         doRun(
                 "ReadWriteRec",
                 ReadWriteRec.class,
@@ -71,6 +72,7 @@ public class ChronMain
         }
         finally
         {
+            //noinspection ResultOfMethodCallIgnored
             file.delete();
         }
     }
